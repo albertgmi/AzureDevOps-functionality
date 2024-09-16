@@ -12,7 +12,9 @@ builder.Services.AddSwaggerGen();
 // Po³¹czenie do bazy danych
 
 builder.Services.AddDbContext<MyBoardsContext>(
-    option=>option.UseSqlServer(builder.Configuration.GetConnectionString("MyBoardsConnectionString"))
+    option=>option
+    .UseLazyLoadingProxies()
+    .UseSqlServer(builder.Configuration.GetConnectionString("MyBoardsConnectionString"))
     );
 
 // Usuwanie "pêtli" podczas serializacji do JSON w aplikacjach MinimalAPI
@@ -93,11 +95,19 @@ app.MapGet("userComments", async (MyBoardsContext mb) =>
     return new { topUser, user.Count };
 });
 
-app.MapGet("tracker", async (MyBoardsContext mb) =>
+app.MapGet("lazyLoading", async (MyBoardsContext mb) =>
 {
-    var topAuthors = await mb.ViewTopAuthors
-    .ToListAsync();
-    return topAuthors;
+    var withAddress = true;
+
+    var user = mb.Users
+    .First(u => u.Id == Guid.Parse("EBFBD70D-AC83-4D08-CBC6-08DA10AB0E61"));
+
+    if (withAddress)
+    {
+        var result = new {FullName = user.FullName, Adres = $"{user.Address.Street}, {user.Address.City}"};
+        return result;
+    }
+    return new { user.FullName, Adres = "-" };
 });
 
 app.MapPost("update", async (MyBoardsContext mb) =>
