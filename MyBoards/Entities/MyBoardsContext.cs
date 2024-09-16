@@ -115,6 +115,14 @@ namespace MyBoards.Entities
                 eb.ToView("View_TopAuthors")
                 .HasNoKey();
             });
+
+            modelBuilder.Entity<Address>()
+                .OwnsOne(a => a.Coordinate, c =>
+                {
+                    c.Property(x => x.Latitude).HasPrecision(18, 7);
+                    c.Property(x => x.Longitude).HasPrecision(18, 7);
+                }
+                );
         }
     } 
 }   

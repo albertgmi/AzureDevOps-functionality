@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyBoards.Entities
 {
@@ -11,5 +12,12 @@ namespace MyBoards.Entities
         public string PostalCode { get; set; }
         public User User { get; set; }
         public Guid UserId { get; set; }
+        public Coordinate Coordinate { get; set; }
+
+    }
+    public class Coordinate
+    {
+        public decimal? Longitude { get; set; }
+        public decimal? Latitude { get; set; }
     }
 }
