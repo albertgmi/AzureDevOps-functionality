@@ -97,12 +97,12 @@ app.MapPost("create", async (MyBoardsContext mb) =>
         Id = Guid.NewGuid(),
         City = "Siedlce",
         Country = "Poland",
-        Street = "Sulimów 22/52"
+        Street = "Ratuszowa 100/10"
     };
     User user = new User()
     {
-        FullName = "Monika Monik",
-        Email = "monisiunia@wp.pl",
+        FullName = "Monika Chmielewska",
+        Email = "moChmiel@wp.pl",
         Address = adres
     };
     mb.Users.Add(user);
