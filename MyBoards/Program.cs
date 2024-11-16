@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Po³¹czenie do bazy danych
+// PoÂ³Â¹czenie do bazy danych
 
 builder.Services.AddDbContext<MyBoardsContext>(
     option=>option
@@ -17,7 +17,7 @@ builder.Services.AddDbContext<MyBoardsContext>(
     .UseSqlServer(builder.Configuration.GetConnectionString("MyBoardsConnectionString"))
     );
 
-// Usuwanie "pêtli" podczas serializacji do JSON w aplikacjach MinimalAPI
+// Usuwanie "pÃªtli" podczas serializacji do JSON w aplikacjach MinimalAPI
 
 builder.Services.Configure<JsonOptions>(options =>
 {
@@ -42,35 +42,6 @@ if (pendingMigrations.Any())
 }
 
 var users = dbContext.Users.ToList();
-
-
-if (users.Count==0)
-{
-    var user1 = new User()
-    {
-        Email = "monika.wakula@vp.pl",
-        FullName = "Monika Waku³a",
-        Address = new Address()
-        {
-            City = "Siedlce",
-            Street = "Sulimów"
-        }
-    };
-    var user2 = new User()
-    {
-        Email = "mojbercik.kc@kc.kc",
-        FullName = "Bercik Gmitrzaczek",
-        Address = new Address()
-        {
-            City = "Warszawa",
-            Street = "Ksawerów"
-        }
-    };
-    dbContext.Users.Add(user1);
-    dbContext.Users.Add(user2);
-
-    dbContext.SaveChanges();
-}
 
 app.MapGet("data", async (MyBoardsContext mb) =>
 {
@@ -126,7 +97,7 @@ app.MapPost("create", async (MyBoardsContext mb) =>
         Id = Guid.NewGuid(),
         City = "Siedlce",
         Country = "Poland",
-        Street = "Sulimów 22/52"
+        Street = "SulimÃ³w 22/52"
     };
     User user = new User()
     {
